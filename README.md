@@ -16,10 +16,11 @@ OAuth for Gmail
       process.stdin.setEncoding('utf8');
       process.stdout.write('Enter verification code: ');
 
-      process.stdin.on('data', function (text) {
+      process.stdin.once('data', function (text) {
         var verifier = text.trim();
         GmailOAuth.getAccessToken(results, verifier, function(error, results) {
           if (error) { 
+            process.exit(1);
             console.log(error);
           } else {
             console.log(results);
